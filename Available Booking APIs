@@ -1,0 +1,5 @@
+POST   /api/bookings
+GET    /api/bookings/track/:request_id
+GET    /api/bookings/my
+GET    /api/bookings
+PATCH  /api/bookings/:id/status
