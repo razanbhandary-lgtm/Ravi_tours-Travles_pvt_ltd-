@@ -1,0 +1,29 @@
+INSERT INTO airports(code,city,country) VALUES
+('KTM','Kathmandu','Nepal'),
+('DXB','Dubai','UAE'),
+('DEL','Delhi','India'),
+('DOH','Doha','Qatar'),
+('KUL','Kuala Lumpur','Malaysia'),
+('BKK','Bangkok','Thailand');
+
+INSERT INTO flights
+(airline,flight_no,from_city,to_city,departure,arrival,price,seats)
+VALUES
+
+('Himalaya Airlines','H9-501','Kathmandu','Dubai',
+'2026-07-20 09:30:00',
+'2026-07-20 13:40:00',
+42000,
+120),
+
+('Nepal Airlines','RA-201','Kathmandu','Delhi',
+'2026-07-20 07:00:00',
+'2026-07-20 08:40:00',
+15000,
+80),
+
+('Qatar Airways','QR-653','Kathmandu','Doha',
+'2026-07-21 13:00:00',
+'2026-07-21 17:10:00',
+47000,
+95);
