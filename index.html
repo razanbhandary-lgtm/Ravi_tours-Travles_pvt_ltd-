@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravi Tour &amp; Travels | Book Flights, Tours &amp; Packages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Sans+Devanagari:wght@400;500;700&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+        }
+        
+        .travel-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35)), url('https://picsum.photos/id/1016/2000/1200');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #1e40af, #3b82f6);
+            border-radius: 3px;
+        }
+        
+        .flight-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .flight-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .nav-active {
+            color: #1e40af;
+            font-weight: 600;
+        }
+        
+        .airline-logo {
+            filter: grayscale(20%);
+            transition: all 0.3s ease;
+        }
+        
+        .airline-logo:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        .demo-badge {
+            background: linear-gradient(90deg, #ef4444, #f97316);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- DEMO WARNING BANNER -->
+    <div class="bg-red-600 text-white py-2 text-center text-sm font-medium sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-x-2">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span class="font-bold">DEMO WEBSITE ONLY</span> — 
+            <span>Real booking nahi hota. Ye sirf example hai. Real site ke liye company license, payment gateway approval aur legal process zaroori hai.</span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-[36px] z-40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-blue-700 rounded-full flex items-center justify-center">
+                        <i class="fas fa-plane text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-2xl text-gray-900">Ravi Tour</span>
+                        <span class="font-bold text-2xl text-blue-700">&amp; Travels</span>
+                        <span class="text-xs text-gray-500 block -mt-1">Pvt. Ltd.</span>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#flights" class="text-gray-700 hover:text-blue-700 transition-colors">Flights</a>
+                    <a href="#packages" class="text-gray-700 hover:text-blue-700 transition-colors">Packages</a>
+                    <a href="#partners" class="text-gray-700 hover:text-blue-700 transition-colors">Airlines</a>
+                    <a href="#why-us" class="text-gray-700 hover:text-blue-700 transition-colors">Why Us</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <button onclick="showContactModal()"
+                            class="px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-full transition-colors flex items-center gap-x-2">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="hidden sm:inline">Contact</span>
+                    </button>
+                    
+                    <button onclick="showLoginModal()"
+                            class="px-5 py-2 text-sm font-semibold border border-gray-300 hover:bg-gray-50 rounded-full transition-colors">
+                        Login
+                    </button>
+                    
+                    <button onclick="showBookingModal()"
+                            class="px-6 py-2.5 bg-blue-700 hover:bg-blue-800 transition-all text-white text-sm font-bold rounded-full flex items-center gap-x-2 shadow-lg shadow-blue-700/30">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Book Now</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="travel-hero h-[620px] flex items-center">
+        <div class="max-w-7xl mx-auto px-6 text-white">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium">Nepal's Trusted Travel Partner Since 2010</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl font-bold leading-[1.05] tracking-tighter mb-4">
+                    Give wings to<br>your dreams
+                </h1>
+                <p class="text-xl text-white/90 mb-8 max-w-md">
+                    Safe, reliable &amp; cheapest flights, tour packages &amp; travel services across Nepal &amp; worldwide.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="document.getElementById('flights').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-4 bg-white text-blue-700 font-bold text-lg rounded-2xl flex items-center gap-x-3 hover:bg-gray-100 transition-all active:scale-[0.985]">
+                        <span>Search Flights</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="showBookingModal()" 
+                            class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/40 text-white font-semibold rounded-2xl flex items-center gap-x-3 transition-all">
+                        <i class="fas fa-headset"></i>
+                        <span>Talk to Expert</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-6 text-sm">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-white overflow-hidden"><img src="https://picsum.photos/id/1005/32/32" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-white overflow-hidden"><img src="https://picsum.photos/id/1011/32/32" class="w-full h-full object-cover"></div>
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-white overflow-hidden"><img src="https://picsum.photos/id/1009/32/32" class="w-full h-full object-cover"></div>
+                    </div>
+                    <div class="text-white/80 text-sm">Join <span class="font-semibold text-white">12,400+</span> happy travelers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Search / Flight Search -->
+    <div id="flights" class="max-w-7xl mx-auto px-6 -mt-10 relative z-30">
+        <div class="bg-white rounded-3xl shadow-2xl shadow-gray-900/10 p-8 border border-gray-100">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Find Your Flight</h2>
+                    <p class="text-gray-500 text-sm">Domestic &amp; International • Best prices guaranteed</p>
+                </div>
+                <div class="hidden md:flex items-center gap-x-2 text-xs">
+                    <div class="px-3 py-1 bg-green-100 text-green-700 rounded-full font-medium flex items-center gap-x-1">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Lowest Price</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Form -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <!-- Trip Type -->
+                <div class="md:col-span-5 flex gap-2 mb-1">
+                    <label class="flex items-center gap-x-2 cursor-pointer">
+                        <input type="radio" name="trip" value="oneway" checked class="accent-blue-700">
+                        <span class="text-sm font-medium">One Way</span>
+                    </label>
+                    <label class="flex items-center gap-x-2 cursor-pointer">
+                        <input type="radio" name="trip" value="round" class="accent-blue-700">
+                        <span class="text-sm font-medium">Round Trip</span>
+                    </label>
+                    <label class="flex items-center gap-x-2 cursor-pointer">
+                        <input type="radio" name="trip" value="multi" class="accent-blue-700">
+                        <span class="text-sm font-medium">Multi City</span>
+                    </label>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5">FROM</label>
+                    <select id="from" class="w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                        <option>Kathmandu (KTM)</option>
+                        <option>Pokhara (PKR)</option>
+                        <option>Biratnagar (BIR)</option>
+                        <option>Dubai (DXB)</option>
+                        <option>Doha (DOH)</option>
+                        <option>Kuala Lumpur (KUL)</option>
+                        <option>Delhi (DEL)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5">TO</label>
+                    <select id="to" class="w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                        <option>Dubai (DXB)</option>
+                        <option>Doha (DOH)</option>
+                        <option>Kuala Lumpur (KUL)</option>
+                        <option>Kathmandu (KTM)</option>
+                        <option>Pokhara (PKR)</option>
+                        <option>Delhi (DEL)</option>
+                        <option>Bangkok (BKK)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5">DEPARTURE</label>
+                    <input type="date" id="departure" value="2026-07-15" 
+                           class="w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5">PASSENGERS</label>
+                    <select id="passengers" class="w-full border border-gray-300 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-600">
+                        <option>1 Adult</option>
+                        <option>2 Adults</option>
+                        <option>1 Adult + 1 Child</option>
+                        <option>2 Adults + 2 Children</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-end">
+                    <button onclick="searchFlights()" 
+                            class="w-full bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 transition-all text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-x-2 text-base shadow-lg">
+                        <i class="fas fa-search"></i>
+                        <span>SEARCH FLIGHTS</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Destinations -->
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-8">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="section-title text-3xl font-bold text-gray-900">Popular Routes</h2>
+                <p class="text-gray-500 mt-1">Best deals this month from Nepal</p>
+            </div>
+            <a href="#" class="hidden md:flex items-center text-blue-700 font-semibold text-sm hover:underline">View all routes <i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+            <!-- Destination Cards -->
+            <div onclick="quickBook('Kathmandu', 'Dubai')" class="flight-card bg-white border border-gray-100 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-40 relative">
+                    <img src="https://picsum.photos/id/1018/600/400" class="w-full h-full object-cover" alt="Dubai">
+                    <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold shadow">From NPR 42,500</div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold">Kathmandu → Dubai</div>
+                            <div class="text-xs text-gray-500">Qatar Airways • 4h 45m</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div class="text-emerald-600 text-sm font-bold">Cheapest deal</div>
+                        <button class="text-xs px-4 py-1.5 bg-blue-700 text-white rounded-full font-semibold">Book</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div onclick="quickBook('Kathmandu', 'Doha')" class="flight-card bg-white border border-gray-100 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-40 relative">
+                    <img src="https://picsum.photos/id/160/600/400" class="w-full h-full object-cover" alt="Doha">
+                    <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold shadow">From NPR 38,900</div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold">Kathmandu → Doha</div>
+                            <div class="text-xs text-gray-500">Qatar Airways • 4h 10m</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div class="text-emerald-600 text-sm font-bold">Hot deal</div>
+                        <button class="text-xs px-4 py-1.5 bg-blue-700 text-white rounded-full font-semibold">Book</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div onclick="quickBook('Pokhara', 'Kathmandu')" class="flight-card bg-white border border-gray-100 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-40 relative">
+                    <img src="https://picsum.photos/id/251/600/400" class="w-full h-full object-cover" alt="Pokhara">
+                    <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold shadow">From NPR 5,800</div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold">Pokhara → Kathmandu</div>
+                            <div class="text-xs text-gray-500">Buddha Air / Yeti Airlines</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div class="text-emerald-600 text-sm font-bold">Daily flights</div>
+                        <button class="text-xs px-4 py-1.5 bg-blue-700 text-white rounded-full font-semibold">Book</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div onclick="quickBook('Kathmandu', 'Kuala Lumpur')" class="flight-card bg-white border border-gray-100 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-40 relative">
+                    <img src="https://picsum.photos/id/201/600/400" class="w-full h-full object-cover" alt="Malaysia">
+                    <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold shadow">From NPR 48,500</div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold">Kathmandu → Kuala Lumpur</div>
+                            <div class="text-xs text-gray-500">Malaysia Airlines • 5h 20m</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div class="text-emerald-600 text-sm font-bold">Best price</div>
+                        <button class="text-xs px-4 py-1.5 bg-blue-700 text-white rounded-full font-semibold">Book</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div onclick="quickBook('Kathmandu', 'Delhi')" class="flight-card bg-white border border-gray-100 rounded-3xl overflow-hidden cursor-pointer">
+                <div class="h-40 relative">
+                    <img src="https://picsum.photos/id/133/600/400" class="w-full h-full object-cover" alt="Delhi">
+                    <div class="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold shadow">From NPR 13,200</div>
+                </div>
+                <div class="p-5">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold">Kathmandu → Delhi</div>
+                            <div class="text-xs text-gray-500">IndiGo / Air India • 1h 30m</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div class="text-emerald-600 text-sm font-bold">Frequent</div>
+                        <button class="text-xs px-4 py-1.5 bg-blue-700 text-white rounded-full font-semibold">Book</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div id="why-us" class="bg-white py-14">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <h2 class="section-title text-3xl font-bold">Why Book With Ravi Tour &amp; Travels?</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center p-6">
+                    <div class="mx-auto w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-shield-alt text-3xl"></i>
+                    </div>
+                    <div class="font-bold text-lg mb-1">100% Secure</div>
+                    <p class="text-sm text-gray-600">Safe payment &amp; trusted by thousands of Nepali travelers</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="mx-auto w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-tags text-3xl"></i>
+                    </div>
+                    <div class="font-bold text-lg mb-1">Lowest Prices</div>
+                    <p class="text-sm text-gray-600">We guarantee the best fares. Found cheaper? We'll match it.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="mx-auto w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-headset text-3xl"></i>
+                    </div>
+                    <div class="font-bold text-lg mb-1">24/7 Support</div>
+                    <p class="text-sm text-gray-600">Our team is always ready to help you via call, WhatsApp &amp; Viber</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="mx-auto w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fas fa-globe text-3xl"></i>
+                    </div>
+                    <div class="font-bold text-lg mb-1">Full Service</div>
+                    <p class="text-sm text-gray-600">Flights • Hotels • Visa • Tours • Chopper • Forex • Events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Airline Partners -->
+    <div id="partners" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="text-center mb-8">
+            <h2 class="section-title text-3xl font-bold">Our Trusted Airline Partners</h2>
+            <p class="text-gray-500 mt-2">Book with confidence on these international &amp; domestic carriers</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-8 opacity-90">
+            <div class="text-center">
+                <div class="text-4xl font-black text-red-600">QATAR</div>
+                <div class="text-[10px] text-gray-500 -mt-1">AIRWAYS</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-black text-sky-600">flydubai</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-black text-red-700">Malaysia Airlines</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-black text-blue-800">Nepal Airlines</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-black text-orange-600">Himalaya Airlines</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-black text-emerald-700">Buddha Air</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact / Footer -->
+    <footer class="bg-gray-900 text-white/90 pt-14 pb-8">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-y-10">
+            <div>
+                <div class="flex items-center gap-x-3 mb-5">
+                    <div class="w-9 h-9 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-plane text-blue-700"></i>
+                    </div>
+                    <span class="font-bold text-2xl text-white">Ravi Tour &amp; Travels</span>
+                </div>
+                <p class="max-w-xs text-sm text-white/70">Jaleshwor-2, CDO Office ko agadi, Nepal</p>
+                
+                <div class="mt-6 space-y-2 text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fas fa-phone w-5"></i>
+                        <span>9809673524 • 9767718995</span>
+                    </div>
+                    <div class="flex items-center gap-x-3">
+                        <i class="fas fa-envelope w-5"></i>
+                        <span>ravitravel02@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-x-3">
+                        <i class="fab fa-whatsapp w-5"></i>
+                        <span>WhatsApp / Viber available</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-y-8 text-sm">
+                <div>
+                    <div class="font-semibold text-white mb-3">Quick Links</div>
+                    <div class="space-y-1.5 text-white/70">
+                        <div>Flight Booking</div>
+                        <div>Holiday Packages</div>
+                        <div>Visa Services</div>
+                        <div>Chopper Booking</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Office Hours</div>
+                    <div class="text-white/70">Sunday - Friday<br>10:00 AM - 6:00 PM (NPT)</div>
+                    
+                    <div class="mt-6">
+                        <button onclick="showContactModal()" 
+                                class="px-5 py-2 bg-white/10 hover:bg-white/20 text-sm rounded-full font-medium flex items-center gap-x-2">
+                            <i class="fas fa-comments"></i>
+                            <span>Chat with us</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 pt-6 border-t border-white/10 text-center text-xs text-white/50">
+            © 2026 Ravi Tour &amp; Travels Pvt. Ltd. • All Rights Reserved • This is a DEMO website created for learning purposes only.
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" onclick="if (event.target.id === 'bookingModal') hideBookingModal()" class="hidden fixed inset-0 bg-black/60 flex items-end md:items-center justify-center z-[100]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full md:w-[480px] md:rounded-3xl md:m-4 rounded-t-3xl p-7">
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <span class="font-bold text-2xl">Book Your Trip</span>
+                </div>
+                <button onclick="hideBookingModal()" class="text-3xl leading-none text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs font-bold text-gray-500">FULL NAME</label>
+                    <input id="bookName" type="text" value="Ram Bahadur Thapa" class="w-full border rounded-2xl px-4 py-3 text-sm">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500">PHONE / WHATSAPP</label>
+                        <input id="bookPhone" type="tel" value="9809673524" class="w-full border rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500">EMAIL</label>
+                        <input id="bookEmail" type="email" value="customer@gmail.com" class="w-full border rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="text-xs font-bold text-gray-500">SELECT ROUTE</label>
+                    <select id="bookRoute" class="w-full border rounded-2xl px-4 py-3 text-sm">
+                        <option>Kathmandu → Dubai (Qatar) - NPR 42,500</option>
+                        <option>Kathmandu → Doha (Qatar) - NPR 38,900</option>
+                        <option>Pokhara → Kathmandu - NPR 5,800</option>
+                        <option>Kathmandu → Kuala Lumpur - NPR 48,500</option>
+                    </select>
+                </div>
+                
+                <div class="pt-3">
+                    <button onclick="confirmBooking()" 
+                            class="w-full py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-extrabold text-lg rounded-2xl flex items-center justify-center gap-x-2 active:scale-[0.985]">
+                        <i class="fas fa-check-circle"></i>
+                        <span>CONFIRM BOOKING (DEMO)</span>
+                    </button>
+                    <p class="text-center text-[10px] text-gray-500 mt-3">This is a demo. No real payment or ticket will be issued.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" onclick="if (event.target.id === 'successModal') hideSuccessModal()" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[110]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white mx-5 md:mx-0 w-full max-w-md rounded-3xl p-8 text-center">
+            <div class="mx-auto w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-5">
+                <i class="fas fa-check-circle text-6xl"></i>
+            </div>
+            
+            <h3 class="font-extrabold text-3xl text-gray-900">Booking Confirmed!</h3>
+            <p class="text-emerald-600 font-semibold mt-1">Your e-ticket has been generated (Demo)</p>
+            
+            <div class="my-7 bg-gray-50 rounded-2xl p-5 text-left text-sm">
+                <div class="flex justify-between py-1">
+                    <span class="text-gray-500">Booking ID</span>
+                    <span class="font-mono font-bold">RAVI-2026-78421</span>
+                </div>
+                <div class="flex justify-between py-1">
+                    <span class="text-gray-500">Route</span>
+                    <span class="font-semibold" id="successRoute"></span>
+                </div>
+                <div class="flex justify-between py-1">
+                    <span class="text-gray-500">Passenger</span>
+                    <span class="font-semibold" id="successName"></span>
+                </div>
+                <div class="flex justify-between py-1">
+                    <span class="text-gray-500">Status</span>
+                    <span class="text-emerald-600 font-bold">CONFIRMED (Demo)</span>
+                </div>
+            </div>
+            
+            <button onclick="hideSuccessModal()" 
+                    class="w-full py-3.5 bg-gray-900 hover:bg-black transition-colors text-white font-bold rounded-2xl">
+                Back to Home
+            </button>
+            
+            <p class="text-xs text-gray-400 mt-4">In real version, you would receive SMS + Email with e-ticket PDF.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#1e40af');
+        }
+        
+        // Search Flights Function
+        function searchFlights() {
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const departure = document.getElementById('departure').value;
+            const passengers = document.getElementById('passengers').value;
+            
+            // Show loading
+            const btns = event.currentTarget;
+            
+            // Create results section dynamically
+            let resultsDiv = document.getElementById('searchResults');
+            if (!resultsDiv) {
+                resultsDiv = document.createElement('div');
+                resultsDiv.id = 'searchResults';
+                resultsDiv.className = 'max-w-7xl mx-auto px-6 mt-8';
+                document.getElementById('flights').after(resultsDiv);
+            }
+            
+            resultsDiv.innerHTML = `
+                <div class="bg-white border border-gray-200 rounded-3xl p-6">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <span class="font-bold text-xl">${from} → ${to}</span>
+                            <span class="ml-3 text-xs px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full font-medium">${departure}</span>
+                        </div>
+                        <div class="text-sm text-gray-500">${passengers}</div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Fake Flight Results -->
+                        <div onclick="quickBook('${from}', '${to}')" class="cursor-pointer border border-gray-200 hover:border-blue-400 transition-all rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-y-4">
+                            <div class="flex items-center gap-x-4">
+                                <div>
+                                    <div class="font-extrabold text-xl">07:45 <span class="text-xs font-normal text-gray-400">→</span> 12:30</div>
+                                    <div class="text-xs text-gray-500">Qatar Airways • QR-1234 • Direct</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-x-8">
+                                <div>
+                                    <div class="text-emerald-600 font-extrabold text-2xl">NPR 42,500</div>
+                                    <div class="text-xs text-gray-400">per person • incl. taxes</div>
+                                </div>
+                                
+                                <button class="px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-2xl transition-all whitespace-nowrap">
+                                    SELECT &amp; BOOK
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div onclick="quickBook('${from}', '${to}')" class="cursor-pointer border border-gray-200 hover:border-blue-400 transition-all rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-y-4">
+                            <div class="flex items-center gap-x-4">
+                                <div>
+                                    <div class="font-extrabold text-xl">14:20 <span class="text-xs font-normal text-gray-400">→</span> 19:10</div>
+                                    <div class="text-xs text-gray-500">flydubai • FZ-456 • 1 Stop</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-x-8">
+                                <div>
+                                    <div class="text-emerald-600 font-extrabold text-2xl">NPR 39,800</div>
+                                    <div class="text-xs text-gray-400">per person • incl. taxes</div>
+                                </div>
+                                
+                                <button class="px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-2xl transition-all whitespace-nowrap">
+                                    SELECT &amp; BOOK
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-6">
+                        <span class="text-xs text-gray-400">Prices shown are demo only. Real prices may vary.</span>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function quickBook(from, to) {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Pre-fill route
+            setTimeout(() => {
+                const routeSelect = document.getElementById('bookRoute');
+                if (routeSelect) {
+                    for (let i = 0; i < routeSelect.options.length; i++) {
+                        if (routeSelect.options[i].text.includes(from) || routeSelect.options[i].text.includes(to)) {
+                            routeSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }, 300);
+        }
+        
+        function showBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function hideBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function confirmBooking() {
+            const name = document.getElementById('bookName').value || "Guest";
+            const phone = document.getElementById('bookPhone').value;
+            const route = document.getElementById('bookRoute').value;
+            
+            hideBookingModal();
+            
+            // Show success
+            setTimeout(() => {
+                const successModal = document.getElementById('successModal');
+                document.getElementById('successName').innerText = name;
+                document.getElementById('successRoute').innerText = route.split(' - ')[0];
+                
+                successModal.classList.remove('hidden');
+                successModal.classList.add('flex');
+            }, 400);
+        }
+        
+        function hideSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            // Optional: show thank you toast
+            showToast();
+        }
+        
+        function showToast() {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-2xl shadow-xl flex items-center gap-x-3 z-[200]`;
+            toast.innerHTML = `
+                <i class="fas fa-check-circle text-emerald-400"></i>
+                <span class="font-medium">Thank you! Our team will contact you shortly (Demo)</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+        
+        function showContactModal() {
+            alert("📞 Contact Ravi Tour & Travels\n\nPhone / WhatsApp: 9809673524 or 9767718995\nEmail: ravitravel02@gmail.com\n\nOffice: Jaleshwor-2, CDO Office ko agadi\n\n(This is demo. In real site this would open WhatsApp or call directly)");
+        }
+        
+        function showLoginModal() {
+            const modalHTML = `
+                <div onclick="this.remove()" class="fixed inset-0 bg-black/60 flex items-center justify-center z-[100]">
+                    <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-sm mx-4 rounded-3xl p-8">
+                        <h3 class="font-bold text-2xl mb-1">Welcome Back</h3>
+                        <p class="text-sm text-gray-500 mb-6">Login to manage your bookings</p>
+                        
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Phone or Email" value="ravitravel02@gmail.com" class="w-full border px-4 py-3 rounded-2xl text-sm">
+                            <input type="password" placeholder="Password" value="demo123" class="w-full border px-4 py-3 rounded-2xl text-sm">
+                            
+                            <button onclick="loginDemo(this)" class="w-full py-3.5 bg-blue-700 text-white font-bold rounded-2xl">Login (Demo)</button>
+                            
+                            <div class="text-center text-xs text-gray-400">Don't have account? <span class="text-blue-600 cursor-pointer">Register here</span></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+        
+        function loginDemo(element) {
+            element.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Logging in...`;
+            setTimeout(() => {
+                element.closest('.fixed').remove();
+                const success = document.createElement('div');
+                success.className = `fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3 rounded-2xl flex items-center gap-x-2 shadow-lg z-[200]`;
+                success.innerHTML = `✅ Logged in successfully (Demo mode)`;
+                document.body.appendChild(success);
+                setTimeout(() => success.remove(), 2200);
+            }, 1100);
+        }
+        
+        // Keyboard support
+        function setupKeyboard() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "/" && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    document.getElementById('from').focus();
+                }
+            });
+            
+            // Pre-fill today's date + few days
+            const dateInput = document.getElementById('departure');
+            if (dateInput) {
+                const today = new Date();
+                today.setDate(today.getDate() + 14);
+                const formatted = today.toISOString().split('T')[0];
+                dateInput.value = formatted;
+            }
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            setupKeyboard();
+            
+            // Bonus: Make some cards clickable hint
+            console.log('%c[Ravi Tour Demo] Website initialized successfully. All features are simulated.', 'color:#64748b');
+            
+            // Easter egg: Press "?" to show booking modal
+            document.addEventListener('keypress', function(e) {
+                if (e.key === "?") {
+                    showBookingModal();
+                }
+            });
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>
