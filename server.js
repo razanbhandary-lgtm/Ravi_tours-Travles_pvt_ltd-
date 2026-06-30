@@ -10,7 +10,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json());app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/flights", require("./routes/flightRoutes"));
